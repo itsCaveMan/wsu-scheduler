@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="INSPIRO" />
+    <meta name="description" content="Themeforest Template Polo, html template">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Document title -->
+    <title>POLO | The Multi-Purpose HTML5 Template</title>
+    <!-- Stylesheets & Fonts -->
+    <link href="css/tui-calendar.css" rel="stylesheet">
+
+    <link href="css/plugins.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.css" /> -->
+
+    <!-- If you use the default popups, use this. -->
+    <!-- <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css" />
+    <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css" /> -->
+
+
+</head>
+
+<body ng-app="wsu" ng-controller="mainController" id="body">
+
+
+    <div class="body-inner" style="background-color: cadetblue">
+
+
+        <!-- ============  Header  ============-->
+        <header id="header" data-transparent="true" data-fullwidth="true" class="dark submenu-light">
+            <div class="header-inner">
+                <div class="container">
+                    <!--Logo-->
+                    <div id="logo">
+                        <a href="index.html">
+                          <span class="logo-default">WSU Scheduler</span>
+                            <span class="logo-dark">WSU Scheduler</span>
+                        </a>
+                    </div>
+                    <!--End: Logo-->
+
+                    <!--Header Extras-->
+                    <div class="header-extras">
+                        <ul>
+                            <li>
+                                <div class="p-dropdown">
+                                    <a href="#"><i class="icon-globe"></i><span>English/한국어</span></a>
+                                    <ul class="p-dropdown-content">
+                                        <li><a href="#">English</a></li>
+                                        <li><a href="#">Korean</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--end: Header Extras-->
+
+
+                </div>
+            </div>
+        </header>
+
+
+
+        <!-- ============  Modal  ============-->
+        <div class="modal text-center" id="modal-add_class_modal">
+            <h2 class="modal-title">Add a class to your Schedule</h2>
+            <p>Our creators love heari</p>
+                <div class="respond-form" id="respond">
+                    <form class="form-gray-fields">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input class="form-control required" placeholder="Class name" type="text" ng-model="new_class__name">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input class="form-control required email" placeholder="Professor" type="email" ng-model="new_class__professor">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input class="form-control website" placeholder="Days" type="checkbox">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input class="form-control website" placeholder="Major/Miner/GE/.." type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group text-center">
+                                    <button class="btn" type="button" ng-click="add_class()">Submit Comment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <a class="btn btn-light modal-close" href="#">Dismiss</a>
+            <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+        </div>
+
+
+        <!-- ============  Body  ============-->
+        <section id="page-content" class="sidebar-both">
+            <div class="container">
+                <div class="row">
+
+                  <!-- ============  Side bar  ============-->
+                    <div class="sidebar col-lg-4">
+
+
+
+                        <!-- ============  Class selection  ============-->
+                        <div class="widget mb-5">
+                          <h3 class="text-center">Choose class's</h3>
+
+                            <div class="tabs">
+                                <ul class="nav nav-tabs" id="tabs-posts" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true">All</a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#featured" role="tab" aria-controls="featured" aria-selected="false">Selected</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#recent" role="tab" aria-controls="recent" aria-selected="false">Unselected</a>
+                                    </li> -->
+                                </ul>
+
+
+
+                                <!-- ============  All  ============-->
+                                <div class="tab-content" id="tabs-posts-content">
+                                    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                                        <div class="post-thumbnail-list">
+
+                                            <div class="post-thumbnail-entry" ng-repeat="class in classes">
+                                                <div class="post-thumbnail-content" ng-click="show_class(class.id)">
+                                                    <h4>{{class.name}}</h4>
+                                                    <span class="post-date"><i class="icon-clock"></i> {{class.time_start}} - {{class.time_end}}</span>
+                                                    <span class="post-category"><i class="fa fa-tag"></i> {{class.days_of_week}} </span>
+                                                </div>
+                                                <button class="btn btn-xs btn-outline btn-rounded " ng-click="show_class(class.id)">Show</button>
+                                                <button class="btn btn-xs btn-outline btn-rounded " ng-click="delete_class(class.id)">Delete</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- ============  Selected  ============-->
+                                    <div class="tab-pane fade" id="featured" role="tabpanel" aria-labelledby="featured-tab">
+                                        <div class="post-thumbnail-list">
+
+                                            <div class="post-thumbnail-entry" ng-repeat="class in classes">
+                                                <div class="post-thumbnail-content">
+                                                    <a href="#">{{class}}</a>
+                                                    <span class="post-date"><i class="icon-clock"></i> 6m ago</span>
+                                                    <span class="post-category"><i class="fa fa-tag"></i> Technology</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- ============  Unselected  ============-->
+                                    <div class="tab-pane fade" id="recent" role="tabpanel" aria-labelledby="recent-tab">
+                                        <div class="post-thumbnail-list">
+
+                                            <div class="post-thumbnail-entry" ng-repeat="class in classes">
+                                                <div class="post-thumbnail-content">
+                                                    <a href="#">{{class}}</a>
+                                                    <span class="post-date"><i class="icon-clock"></i> 6m ago</span>
+                                                    <span class="post-category"><i class="fa fa-tag"></i> Technology</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ============  + Class  ============-->
+                          <div class="widget clearfix widget-archive">
+
+                            <h3 class="text-center">Add new class</h3>
+                            <form class="form-gray-fields">
+                              <input class="form-control" placeholder="Class name" type="text" ng-model="new_class__name">
+                              <input class="form-control" placeholder="Professor name" type="text" ng-model="new_class__professor">
+
+                              <div class="row">
+
+                                <!-- ======  START  ======-->
+                                <div class="col">
+                                  <p>start</p>
+
+                                  <div class="row">
+                                    <div class="col">
+                                      <select class="" ng-model="new_class_time__start_hour" ng-init="new_class_time__start_hour='9'">
+                                              <option value="6">06</option>
+                                              <option value="7">07</option>
+                                              <option value="8">08</option>
+                                              <option selected value="9">09</option>
+                                              <option value="10">10</option>
+                                              <option value="11">11</option>
+                                              <option value="12">12</option>
+                                              <option value="13">13</option>
+                                              <option value="14">14</option>
+                                              <option value="15">15</option>
+                                              <option value="16">16</option>
+                                              <option value="17">17</option>
+                                              <option value="18">18</option>
+                                              <option value="19">19</option>
+                                              <option value="20">20</option>
+                                      </select>
+                                    </div>
+
+                                    <div class="col-a">
+                                      :
+                                    </div>
+
+                                    <div class="col">
+                                      <select class="" ng-model="new_class_time__start_minute" ng-init="new_class_time__start_minute='0'">
+                                              <option selected value="0">00</option>
+                                              <option value="5">05</option>
+
+                                              <option value="10">10</option>
+                                              <option value="15">15</option>
+
+                                              <option value="20">20</option>
+                                              <option value="25">25</option>
+
+                                              <option value="30">30</option>
+                                              <option value="35">35</option>
+
+                                              <option value="40">40</option>
+                                              <option value="45">45</option>
+
+                                              <option value="50">50</option>
+                                              <option value="55">55</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                                <!-- ======  END  ======-->
+                                <div class="col">
+                                  <p>end</p>
+
+                                  <div class="row">
+                                    <div class="col">
+                                      <select class="" ng-model="new_class_time__end_hour" ng-init="new_class_time__end_hour='12'">
+                                              <option value="6">06</option>
+                                              <option value="7">07</option>
+                                              <option value="8">08</option>
+                                              <option value="9">09</option>
+                                              <option value="10">10</option>
+                                              <option value="11">11</option>
+                                              <option selected value="12">12</option>
+                                              <option value="13">13</option>
+                                              <option value="14">14</option>
+                                              <option value="15">15</option>
+                                              <option value="16">16</option>
+                                              <option value="17">17</option>
+                                              <option value="18">18</option>
+                                              <option value="19">19</option>
+                                              <option value="20">20</option>
+                                      </select>
+                                    </div>
+
+                                    <div class="col-a">
+                                      :
+                                    </div>
+
+                                    <div class="col">
+                                      <select class="" ng-model="new_class_time__end_minute" ng-init="new_class_time__end_minute='0'">
+                                              <option selected value="0">00</option>
+                                              <option value="5">05</option>
+
+                                              <option value="10">10</option>
+                                              <option value="15">15</option>
+
+                                              <option value="20">20</option>
+                                              <option value="25">25</option>
+
+                                              <option value="30">30</option>
+                                              <option value="35">35</option>
+
+                                              <option value="40">40</option>
+                                              <option value="45">45</option>
+
+                                              <option value="50">50</option>
+                                              <option value="55">55</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                              </div>
+
+                              <div class="row mb-4">
+                                  <div class="col-1 mx-2">
+                                    <label class="p-switch p-switch-sm">
+                                      mon
+                                      <br>
+                                      <input type="checkbox" name="switch" checked="" ng-model="new_class__day_of_week__monday"><span class="p-switch-style"></span>
+                                    </label>
+
+                                  </div>
+                                  <div class="col-1 mx-2">
+                                    <label class="p-switch p-switch-sm">
+                                      tue
+                                      <br>
+                                      <input type="checkbox" name="switch" checked="" ng-model="new_class__day_of_week__tuesday"><span class="p-switch-style"></span>
+                                    </label>
+
+                                  </div>
+                                  <div class="col-1 mx-2">
+                                    <label class="p-switch p-switch-sm">
+                                      wed
+                                      <br>
+                                      <input type="checkbox" name="switch" checked="" ng-model="new_class__day_of_week__wednesday"><span class="p-switch-style"></span>
+                                    </label>
+
+                                  </div>
+                                  <div class="col-1 mx-2">
+                                    <label class="p-switch p-switch-sm">
+                                      thu
+                                      <br>
+                                      <input type="checkbox" name="switch" checked="" ng-model="new_class__day_of_week__thursday"><span class="p-switch-style"></span>
+                                    </label>
+
+                                  </div>
+                                  <div class="col-1 mx-2">
+                                    <label class="p-switch p-switch-sm">
+                                      fri
+                                      <br>
+                                      <input type="checkbox" name="switch" checked="" ng-model="new_class__day_of_week__friday"><span class="p-switch-style"></span>
+                                    </label>
+
+                                  </div>
+                                  <div class="col-1 mx-2">
+                                    <label class="p-switch p-switch-sm">
+                                      sat
+                                      <br>
+                                      <input type="checkbox" name="switch" checked="" ng-model="new_class__day_of_week__saturday"><span class="p-switch-style"></span>
+                                    </label>
+
+                                  </div>
+                                  <div class="col-1 mx-2">
+                                    <label class="p-switch p-switch-sm">
+                                      sun
+                                      <br>
+                                      <input type="checkbox" name="switch" checked="" ng-model="new_class__day_of_week__sunday"><span class="p-switch-style"></span>
+                                    </label>
+
+                                  </div>
+
+                              </div>
+
+                              <select class="form-control" ng-model="new_class__category">
+                                <option value="">Major</option>
+                                <option value="">Minor</option>
+                                <option value="">GE</option>
+                              </select>
+
+                              <button class="btn" type="button" ng-click="create_class()">+ Create Class</button>
+
+                            </form>
+                          </div>
+
+                    </div>
+
+
+
+
+
+                    <!-- ============  Scheduler  ============-->
+                    <div class="content col">
+
+                      <div id="calendar"></div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ============  Footer  ============-->
+        <footer id="footer">
+            <div class="footer-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="widget">
+                                <div class="widget-title">WSU Semester Scheduler</div>
+                                <p class="mb-5">Built with love by a WSU Student<br>
+                                    All rights reserved. Copyright © 2021. SableApps.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-content">
+                <div class="container">
+                    <div class="copyright-text text-center">&copy; 2021 SableApps - online schedule markup. All Rights Reserved.<a href="//www.sableapps.com" target="_blank" rel="noopener"> SABLEAPPS</a> </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end: Footer -->
+    </div>
+
+
+    <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
+
+    <!--Plugins-->
+    <script src="js/jquery.js"></script>
+    <script src="js/plugins.js"></script>
+    <!--Template functions-->
+    <script src="js/functions.js"></script>
+
+    <link href="plugins/bootstrap-switch/bootstrap-switch.css" rel="stylesheet">
+    <script src="plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+
+    <!-- <script src="js/tui-calendar.js" charset="utf-8"></script> -->
+    <script src="https://uicdn.toast.com/tui.code-snippet/v1.5.2/tui-code-snippet.min.js"></script>
+    <script src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
+    <script src="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.min.js"></script>
+    <script src="https://uicdn.toast.com/tui-calendar/latest/tui-calendar.js"></script>
+
+
+    <script src="app.js" charset="utf-8"></script>
+
+</body>
+
+</html>

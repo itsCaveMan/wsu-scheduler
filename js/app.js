@@ -155,91 +155,23 @@ app.config(function ($translateProvider, $windowProvider) {
     "footer 3"            : "2021 SableApps - onlayn jadvalni belgilash. Barcha huquqlar himoyalangan.",
   });
 
-// en
-// kr
-// jp
-// zh
-// ru
-// uz
+  $translateProvider.preferredLanguage('en');
 
   try {
     var $window = $windowProvider.$get();
     var lan_code = $window.localStorage.getItem('lan');
-    $translateProvider.preferredLanguage(lan_code);
+    if (lan_code != "")
+      $translateProvider.preferredLanguage(lan_code);
+    else
+      $translateProvider.preferredLanguage('en');
 
-  } catch (e) {
+  }
+  catch (e) {
     console.log(e);
     $translateProvider.preferredLanguage('en');
   }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -403,7 +335,45 @@ function mainController($scope, $window, $translate) {
 
   }
 
-  $scope.show_class = function (id, event) {
+  // $scope.show_class = function (id, event) {
+  //
+  //   // only certain elements triggering 'ng-click' can trigger this function
+  //   if (event){
+  //     var allowed_targets = ['post-thumbnail-entry class-card', 'col', 'row', 'post-thumbnail-content']
+  //     if (allowed_targets.some(v => event.target.className.includes(v))) {}
+  //     else
+  //       return
+  //   }
+  //
+  //
+  //   $scope.classes.forEach((_class, i) => {
+  //     if(_class.id == id){
+  //       if(_class.show_in_schedule == true) // if this class is already 'show', then toggle to hide
+  //         _class.show_in_schedule = false
+  //       else
+  //         _class.show_in_schedule = true
+  //     }
+  //   });
+  //
+  //   $scope.save_classes()
+  //
+  //   $scope.populate_calendar();
+  // }
+
+  // $scope.hide_class = function (id) {
+  //   $scope.classes.forEach((_class, i) => {
+  //     if(_class.id == id){
+  //       _class.show_in_schedule = false
+  //     }
+  //   });
+  //
+  //   $scope.save_classes()
+  //
+  //   $scope.populate_calendar()
+  //
+  // }
+
+  $scope.toggle_class = function (_class, event){
 
     // only certain elements triggering 'ng-click' can trigger this function
     if (event){
@@ -413,32 +383,43 @@ function mainController($scope, $window, $translate) {
         return
     }
 
-
-    $scope.classes.forEach((_class, i) => {
-      if(_class.id == id){
-        if(_class.show_in_schedule == true) // if this class is already 'show', then toggle to hide
-          _class.show_in_schedule = false
-        else
-          _class.show_in_schedule = true
-      }
-    });
-
-    $scope.save_classes()
-
-    $scope.populate_calendar();
-  }
-
-  $scope.hide_class = function (id) {
-    $scope.classes.forEach((_class, i) => {
-      if(_class.id == id){
-        _class.show_in_schedule = false
-      }
-    });
+    _class.show_in_schedule = !_class.show_in_schedule
 
     $scope.save_classes()
 
     $scope.populate_calendar()
+  }
 
+  $scope.show_class = function (_class){
+      _class.show_in_schedule = true
+
+      $scope.save_classes()
+
+      $scope.populate_calendar()
+  }
+
+  $scope.hide_class = function (_class){
+      _class.show_in_schedule = false
+
+      $scope.save_classes()
+
+      $scope.populate_calendar()
+  }
+
+  $scope.hide_class__id = function (_class_id){
+
+      $scope.classes.forEach((_class, i) => {
+        if(_class.id == _class_id){
+          _class.show_in_schedule = false
+        }
+      });
+
+      $scope.$apply()
+
+
+      $scope.save_classes()
+
+      $scope.populate_calendar()
   }
 
   $scope.create_class = function () {
@@ -749,10 +730,9 @@ calendar.on('clickSchedule', function(event) {
       setTimeout(()=> {
 
         // mainCtrlScope.hide_class(event.schedule.id)
-        mainCtrlScope.hide_class(event.schedule.id)
-        mainCtrlScope.populate_calendar()
+        mainCtrlScope.hide_class__id(event.schedule.id)
 
-      }, 1000);
+      }, 100);
 
 
 });

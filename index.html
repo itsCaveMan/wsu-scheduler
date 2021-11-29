@@ -150,7 +150,7 @@
                                     <div class="">
                                         <div class="post-thumbnail-list">
                                             <div class="post-thumbnail-entry class-card" ng-repeat="class in classes track by $index" ng-class="{'shadow': class.show_in_schedule, 'shadow-sm': !class.show_in_schedule}"
-                                              ng-click="show_class(class.id, $event); ">
+                                              ng-click="toggle_class(class, $event); ">
 
 
                                                 <!-- ======  title/details  ======-->
@@ -167,8 +167,8 @@
                                                         </div>
 
                                                         <div class="col-a px-1">
-                                                            <button class="btn btn-xs btn-light btn-rounded            " ng-click="hide_class(class.id)" ng-if="class.show_in_schedule" translate="button hide">hide</button>
-                                                            <button class="btn btn-xs btn-light btn-rounded shadow" ng-click="show_class(class.id)" ng-if="!class.show_in_schedule" translate="button show">show</button>
+                                                            <button class="btn btn-xs btn-light btn-rounded            " ng-click="hide_class(class)" ng-if="class.show_in_schedule" translate="button hide">hide</button>
+                                                            <button class="btn btn-xs btn-light btn-rounded shadow" ng-click="show_class(class)" ng-if="!class.show_in_schedule" translate="button show">show</button>
                                                         </div>
 
                                                         <div class="col-a px-1">

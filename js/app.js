@@ -176,7 +176,7 @@ app.config(function ($translateProvider, $windowProvider) {
 
 
 
-var day_week_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+var day_week_names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
 
 
@@ -544,6 +544,7 @@ function mainController($scope, $window, $translate) {
       }
     });
 
+    $scope.$apply()
     $scope.save_classes()
     $scope.populate_calendar()
   }
@@ -557,11 +558,8 @@ function mainController($scope, $window, $translate) {
   }
 
   $scope.save_classes = function () {
-
     var class_json = JSON.stringify($scope.classes)
     $window.localStorage.setItem('classes', class_json)
-
-    console.log($window.localStorage.getItem('classes'));
   }
 
   $scope.load_classes()
@@ -591,17 +589,17 @@ function mainController($scope, $window, $translate) {
       var lan_code = $window.localStorage.getItem('lan');
 
     if (lan_code == 'en')
-      day_week_names = ['Sun', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Mon']
+      day_week_names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     else if (lan_code == 'kr')
-      day_week_names = ['일', '화', '수', '목', '금', '토', '월']
+      day_week_names = ['일', '월', '화', '수', '목', '금', '토']
     else if (lan_code == 'jp')
-      day_week_names = ['月', '火', '水', '木', '金', '土', '日']
+      day_week_names = ['日', '月', '火', '水', '木', '金', '土']
     else if (lan_code == 'zh')
-      day_week_names = ['周一', '周二', '星期三', '星期四', '星期五', '星期六', '星期日']
+      day_week_names = ['星期日', '周一', '周二', '星期三', '星期四', '星期五', '星期六']
     else if (lan_code == 'ru')
-      day_week_names = ['понедельник', 'вторник', 'среда', 'четверг', 'Пятница', 'суббота', 'Воскресенье']
+      day_week_names = ['Воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'Пятница', 'суббота']
     else if (lan_code == 'uz')
-      day_week_names = ['du', 'se', 'chor', 'pay', 'juma', 'shanba', 'yak']
+      day_week_names = ['yak', 'du', 'se', 'chor', 'pay', 'juma', 'shanba']
 
     // en
     // kr
@@ -713,7 +711,6 @@ setTimeout(()=> mainCtrlScope = angular.element(document.getElementById('body'))
 calendar.on('beforeUpdateSchedule', function(event) {
     var schedule = event.schedule;
     var changes = event.changes;
-    console.log(event);
 
     mainCtrlScope.update_schedule_time(event.schedule.id, event.start, event.end, schedule.start, schedule.end)
 

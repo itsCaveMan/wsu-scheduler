@@ -595,13 +595,13 @@ function mainController($scope, $window, $translate) {
     else if (lan_code == 'kr')
       day_week_names = ['일', '화', '수', '목', '금', '토', '월']
     else if (lan_code == 'jp')
-      day_week_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      day_week_names = ['月', '火', '水', '木', '金', '土', '日']
     else if (lan_code == 'zh')
-      day_week_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      day_week_names = ['周一', '周二', '星期三', '星期四', '星期五', '星期六', '星期日']
     else if (lan_code == 'ru')
-      day_week_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      day_week_names = ['понедельник', 'вторник', 'среда', 'четверг', 'Пятница', 'суббота', 'Воскресенье']
     else if (lan_code == 'uz')
-      day_week_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      day_week_names = ['du', 'se', 'chor', 'pay', 'juma', 'shanba', 'yak']
 
     // en
     // kr
